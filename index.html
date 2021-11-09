@@ -9,18 +9,39 @@
 
 <div id="config">
     <h3>Painel de configuração</h3>
-    <p>Número de cavidades de cada lado do tabuleiro <input type="number" min=2 max=7></p>
+    <p>Número de cavidades de cada lado do tabuleiro <select name=numCavities autocomplete="off">
+        <option value="5">5</option>
+        <option value="6" selected>6</option>
+        <option value="7">7</option>
+    </select></p>
+    <p>Número inicial de sementes por cavidade <select name=numSeeds autocomplete="off">
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4" selected>4</option>
+        <option value="5">5</option>
+    </select></p>
+    <p>Jogar contra
+    <input type="radio" name ="opponent" value="cpu">o computador</input>
+    <input type="radio" name ="opponent" value="human">outro jogador</input>
+    </p>
+    <p>Quero ser o primeiro a jogar (vs CPU) <input type="checkbox" name="playerFirst"></input></p>
+    <p>Nível da I.A. (vs CPU)
+    <select name="levelAI" autocomplete="off">
+        <option value="0" selected>Easy</option>
+        <option value="1">Medium</option>
+        <option value="2">Hard</option>
+    </select></p>
+</div>
 
-    <div class="login">
-
-        <p> Email or phone number </p> 
-        <input type=text> 
-        <p>Password</p>
-        <input type="password">
-        <p></p>
-
-    </div>
+<div class="login">
+    <p> Email or phone number </p> 
+    <input type=text> 
+    <p>Password</p>
+    <input type="password">
+    <p></p>
+</div>
     
+<div>
     <br>
 
     <table>

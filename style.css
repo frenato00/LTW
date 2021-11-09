@@ -27,3 +27,13 @@ input {
     font-size: 900%;
     font-style: italic;
 }
+
+#config{
+    font-size: 200%;
+    display: flexbox;
+    border: 2px solid black;
+    border-radius: 25px;
+    padding-left: 20px;
+    margin: 50px;
+}
+
