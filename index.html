@@ -7,8 +7,22 @@
 
 <h1 id="Logo"><b>Mancala</b></h1>
 
-<p> Mancala é uma família de jogos de tabuleiro de origem africana, normalmente jogadados com grãos ou contas. Para saber como se joga
-clique em Regras.</p>
+
+<div class="popup" onclick="myPopup()"> Regras
+    <span class="popuptext" id="myPopup">
+        <ol class="lessbigbreak">
+            <li> Cada jogador fica com as cavidades do seu lado e o armazém a sua direita. 
+            <li> As peças chamam-se sementes. 
+            <li> No início, os armazéns estão vazios eas cavidades têm o mesmo número de sementes. 
+            <li> O jogador pega nas sementes de uma das suas cavidades e distribuías pelas cavidades seguintes, no sentido anti-horário. 
+            <li> Esta fase do jogo chama-se semear. É possível semear o seu armazém mas não o do adversário. 
+            <li> Volta a se jogar se a última semente for semeada no seu armazém. 
+            <li> Se a última semente acabar numa cavidade sua vazia, coleta-se as sementes da cavidade oposta do adversário e última semente semeada.
+            <li> O jogo termina quando um dos jogadores tiver todas as suas cavidades vazias. 
+            <li> O outro jogador recolhe as sementes do seu lado e ganha quem tiver mais sementes no seu armazém. 
+        </ol>    
+    </span> 
+</div>
 
 <div id="config">
     <h3>Painel de configuração</h3>
@@ -81,7 +95,12 @@ clique em Regras.</p>
 
 </div>
 
-
+<script>
+    function myPopup() {
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
+    }
+</script>
 
 
     

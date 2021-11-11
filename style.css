@@ -9,6 +9,10 @@ td {
     background-color: chocolate;
 }
 
+li::marker {
+    color: red;
+}
+
 .emailpasse {
     padding: 15px;
     font-size: large;
@@ -36,6 +40,10 @@ td {
     line-height: 2.5;
 }
 
+.lessbigbreak {
+    line-height: 1.5;
+}
+
 #Logo{
     text-align: center;
     font-size: 900%;
@@ -49,5 +57,57 @@ td {
     border-radius: 25px;
     padding-left: 20px;
     margin: 50px;
+}
+
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 350%;
+    color: navy;
+}
+
+.popup .popuptext {
+    visibility: hidden;
+    width: 1200;
+    background-color: black;
+    color: white;
+    text-align: left;
+    border: 10px solid blue;
+    position: absolute;
+    padding: 15px;
+    left: 200%;
+    margin-left: -80px;
+    font-size: 50%;
+}
+
+.popup .popuptext::after {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black;
+}
+
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+  
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}  
 }
 
