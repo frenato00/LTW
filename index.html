@@ -27,12 +27,12 @@
 <div id="config">
     <h3>Painel de configuração</h3>
 
-    <p>Número de cavidades de cada lado do tabuleiro <select name=numCavities autocomplete="off">
+    <p>Número de cavidades de cada lado do tabuleiro <select id="nCav" autocomplete="off">
         <option value="5">5</option>
         <option value="6" selected>6</option>
         <option value="7">7</option>
     </select></p>
-    <p>Número inicial de sementes por cavidade <select name=numSeeds autocomplete="off">
+    <p>Número inicial de sementes por cavidade <select id="nSeeds" autocomplete="off">
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4" selected>4</option>
@@ -66,40 +66,61 @@
 
     </div>
 </div>
-    
-<div>
-    <br>
 
-    <table>
-        <tr>
-            <td rowspan="2"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td rowspan="2"></td>
-        </tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        <tr>
-
-        </tr>
-    </table>
-
-
-</div>
+<input type="button" onclick="createTable()" value="Tabuleiro">
 
 <script>
     function myPopup() {
         var popup = document.getElementById("myPopup");
         popup.classList.toggle("show");
     }
+
+    function createTable() {
+        var select = document.getElementById("nCav");
+        var nCav = select.value;
+        var select2 = document.getElementById("nSeeds");
+        var nSeeds = select2.value;
+        const body = document.body;
+        const board = document.createElement("table");
+
+        body.removeChild(body.lastChild);
+        board.style.borderCollapse = "collapse";
+        
+        for (let i = 0; i < 2; i++) {
+            const tr = board.insertRow();
+            if (i == 0) {
+                const td = tr.insertCell();
+                td.setAttribute("rowSpan", 2);
+                td.style.border = "20px solid burlywood";
+                td.style.backgroundColor = "chocolate";
+                td.style.height = "200px";
+                td.style.width = "100px";
+            }    
+            for (let j = 0; j < nCav; j++) {
+                const td = tr.insertCell();
+                td.style.border = "20px solid burlywood";
+                td.style.backgroundColor = "chocolate";
+                td.style.height = "200px";
+                td.style.width = "100px";
+                td.appendChild(document.createTextNode(nSeeds));
+            }
+            if (i == 0) {
+                const td = tr.insertCell();
+                td.setAttribute("rowSpan", 2);
+                td.style.border = "20px solid burlywood";
+                td.style.backgroundColor = "chocolate";
+                td.style.height = "200px";
+                td.style.width = "100px";
+            }   
+        }
+
+        body.appendChild(board);
+    }
+
+    function createSeeds(nSeeds) {
+        
+    }
+
 </script>
 
 
