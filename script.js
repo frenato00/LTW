@@ -40,7 +40,7 @@ class Tabuleiro {
                 td.style.backgroundColor = "chocolate";
                 td.style.height = "200px";
                 td.style.width = "100px";
-                td.appendChild(document.createTextNode(this.cavs[1][this.nCav - 1]));
+                td.appendChild(makeSeeds(this.cavs[1][this.nCav-1]));
             }    
             for (let j = 0; j < this.nCav - 1; j++) {
                 const td = tr.insertCell();
@@ -49,9 +49,9 @@ class Tabuleiro {
                 td.style.height = "200px";
                 td.style.width = "100px";
                 if (i == 1)
-                    td.appendChild(document.createTextNode(this.cavs[i][this.nCav - 2 - j]));
+                    td.appendChild(makeSeeds(this.cavs[i][this.nCav - 2 - j]));
                 else
-                    td.appendChild(document.createTextNode(this.cavs[i][j]));
+                    td.appendChild(makeSeeds(this.cavs[i][j]));
                 td.onclick = function() {
                     if (i == 0)
                         tab.sowing(i, j);
@@ -66,7 +66,7 @@ class Tabuleiro {
                 td.style.backgroundColor = "chocolate";
                 td.style.height = "200px";
                 td.style.width = "100px";
-                td.appendChild(document.createTextNode(this.cavs[0][this.nCav-1]));
+                td.appendChild(makeSeeds(this.cavs[0][this.nCav - 1]));
             }   
         }
 
@@ -135,8 +135,10 @@ class Tabuleiro {
     }
 
     finish(side) {
-        for (let i = 0; i < this.nCav - 1; i++)
+        for (let i = 0; i < this.nCav - 1; i++) {
             this.cavs[side][this.nCav-1] += this.cavs[side][i];
+            this.cavs[side][i] = 0;
+        }    
 
         if (this.cavs[0][this.nCav-1] > this.cavs[1][this.nCav-1])
             return 0;
@@ -160,4 +162,22 @@ function createTable() {
 function myPopup() {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
+}
+
+function makeSeeds(nSeeds){
+
+    var element = document.createElement("div");
+    for (let i = 0; i < nSeeds; i++) {
+        var seed = document.createElement("div");
+        var rand = Math.floor(Math.random() * 9) + 1;
+        seed.style.width = "35px";
+        seed.style.height = "15px";
+        seed.style.borderRadius = "50%";
+        seed.style.margin = rand.toString() + "px";
+        seed.style.backgroundColor = "red";
+        seed.style.display = "inline-block";
+        element.appendChild(seed);
+    }
+
+    return element;
 }
