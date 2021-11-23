@@ -50,14 +50,18 @@ class Tabuleiro {
                 td.style.width = "100px";
                 if (i == 1)
                     td.appendChild(makeSeeds(this.cavs[i][this.nCav - 2 - j]));
-                else
-                    td.appendChild(makeSeeds(this.cavs[i][j]));
-                td.onclick = function() {
+                else {
+                    td.appendChild(makeSeeds(this.cavs[i][j]));  
+                    td.onclick = function() {
+                        tab.sowing(i, j);
+                    }
+                }      
+                /*td.onclick = function() {
                     if (i == 0)
                         tab.sowing(i, j);
                     else    
                         tab.sowing(i, tab.nCav - 2 - j);
-                }
+                }*/
             }
             if (i == 1) {
                 const td = tr.insertCell();
@@ -78,6 +82,7 @@ class Tabuleiro {
         let oSide = side;
         cell = parseInt(cell);
         var nSeeds = parseInt(this.cavs[side][cell]);
+        if (nSeeds == 0) return;
         this.cavs[side][cell] = 0;
 
         while (nSeeds > 0) {
