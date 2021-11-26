@@ -31,7 +31,7 @@
     </p>
     <p>Quero ser o primeiro a jogar (vs CPU) <input type="checkbox" name="playerFirst"></input></p>
     <p>Nível da I.A. (vs CPU)
-    <select name="levelAI" autocomplete="off">
+    <select id="levelAI" autocomplete="off">
         <option value="0" selected>Easy</option>
         <option value="1">Medium</option>
         <option value="2">Hard</option>
@@ -56,7 +56,7 @@
 </div>
     
 <div class="popup" onclick="myPopup()"> Regras
-    <span class="popuptext" id="myPopup">
+    <div class="popuptext" id="myPopup">
         <ol class="lessbigbreak">
             <li> Cada jogador fica com as cavidades do seu lado e o armazém a sua direita. 
             <li> As peças chamam-se sementes. 
@@ -68,7 +68,7 @@
             <li> O jogo termina quando um dos jogadores tiver todas as suas cavidades vazias. 
             <li> O outro jogador recolhe as sementes do seu lado e ganha quem tiver mais sementes no seu armazém. 
         </ol>    
-    </span> 
+    </div> 
 </div>
 
 <div>
