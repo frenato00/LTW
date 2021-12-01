@@ -13,6 +13,10 @@ li::marker {
     color: red;
 }
 
+html, body {
+    width: 100%;
+}
+
 .emailpasse {
     width:100%;
     padding: 15px;
@@ -65,29 +69,31 @@ li::marker {
 
 .popup {
     position: relative;
+    /* width: 200px; */
     display: inline-block;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    width: 500px;
     font-size: 350%;
     color: navy;
 }
 
 .popup .popuptext {
     visibility: hidden;
-    width: 1200;
     background-color: black;
     color: white;
     text-align: left;
     border: 10px solid blue;
     position: absolute;
     padding: 15px;
-    left: 200%;
-    margin-left: -80px;
+    left: 10%;
+    /* margin-left: -80px; */
     font-size: 50%;
 }
+
 
 .popup .popuptext::after {
     position: absolute;
@@ -101,7 +107,7 @@ li::marker {
 
 .popup .show {
     visibility: visible;
-    -webkit-animation: fadeIn 1s;
+    /* -webkit-animation: fadeIn 1s; */
     animation: fadeIn 1s;
 }
 
