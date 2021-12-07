@@ -13,23 +13,29 @@ li::marker {
     color: red;
 }
 
+h3{
+    font-size: 50px;
+}
+
 html, body {
-    width: 100%;
+    width: 98%;
 }
 
 .emailpasse {
     width:100%;
-    padding: 15px;
+    /* padding: 15px; */
+    height: 50px;
     font-size: large;
 }
 
-.login {
-    display: block;
-    border: 1px solid black;
-    text-align: left;
-    margin-left: 38%;
-    margin-right: 38%;
-    padding: 10px;
+#login {
+    /* display: block; */
+    /* border: 1px solid black; */
+    /* text-align: left; */
+    max-width: 500px;
+    /* margin-left: 38%; */
+    /* margin-right: 38%; */
+    /* padding: 10px; */
 }
 
 .init {
@@ -40,6 +46,7 @@ html, body {
     font-size: large;
     color: ghostwhite;
 }
+
 
 .bigbreak {
     line-height: 2.5;
@@ -57,63 +64,19 @@ html, body {
 
 #config{
     font-size: 200%;
-    display: flexbox;
-    border: 2px solid black;
-    border-radius: 25px;
-    max-width:850px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    margin: 50px;
-}
-
-.popup {
-    position: relative;
-    /* width: 200px; */
-    display: inline-block;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    width: 500px;
-    font-size: 350%;
-    color: navy;
-}
-
-.popup .popuptext {
-    visibility: hidden;
-    background-color: black;
-    color: white;
-    text-align: left;
-    border: 10px solid blue;
-    position: absolute;
-    padding: 15px;
-    left: 10%;
-    /* margin-left: -80px; */
-    font-size: 50%;
-}
-
-
-.popup .popuptext::after {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: black;
-}
-
-.popup .show {
-    visibility: visible;
-    /* -webkit-animation: fadeIn 1s; */
-    animation: fadeIn 1s;
+    /* display: flexbox; */
+    /* border: 2px solid black; */
+    /* border-radius: 25px; */
+    max-width:750px;
+    /* padding-left: 20px; */
+    /* padding-right: 20px; */
+    /* padding-bottom: 20px; */
+    /* margin: 50px; */
 }
 
 
 .button {
-    background-color: #4CAF50;
+    background-color: #4caf4f93;
     border: black;
     color: white;
     border-radius: 10px;
@@ -121,15 +84,15 @@ html, body {
     text-align: center;
     /* display: inline-block; */
     font-size: large;
-    float: right;
+    /* float: right; */
 }
 
-#scoreboard {
-padding-top: 200px;
-padding-left: 5%;
-padding-right: 5%;
-display:none;
+.button:hover,
+.button:focus {
+    background-color: #4CAF50;
+    cursor: pointer;
 }
+
 
 #scoretable {
     border-collapse: collapse;
@@ -146,7 +109,7 @@ display:none;
     text-align: center;
 }
 
-@-webkit-keyframes fadeIn {
+/* @-webkit-keyframes fadeIn {
     from {opacity: 0;} 
     to {opacity: 1;}
 }
@@ -154,5 +117,47 @@ display:none;
 @keyframes fadeIn {
     from {opacity: 0;}
     to {opacity: 1;}  
+} */
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+  
+  /* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+  
+  /* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
 
+#my_modal_rules{
+    font-size: x-large;
+}

@@ -4,61 +4,76 @@
     <meta charset="UTF-8"> <!-- para caracteres acentuados   -->
     <title>Mancala</title> <!-- texto na decoração da janela -->
     <link rel="stylesheet" href="style.css" type="text/css">
-    <script type="text/javascript" src="script.js"></script>
 </head>
 <body>
 
 <h1 id="Logo"><b>Mancala</b></h1>
 
-
-
-
-<div id="config">
-    <h3>Painel de configuração</h3>
-
-    <p>Número de cavidades de cada lado do tabuleiro <select id="nCav" autocomplete="off">
-        <option value="5">5</option>
-        <option value="6" selected>6</option>
-        <option value="7">7</option>
-    </select></p>
-    <p>Número inicial de sementes por cavidade <select id="nSeeds" autocomplete="off">
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4" selected>4</option>
-        <option value="5">5</option>
-    </select></p>
-    <p>Jogar contra
-    <input type="radio" name ="opponent" value="cpu">o computador</input>
-    <input type="radio" name ="opponent" value="human">outro jogador</input>
-    </p>
-    <p>Quero ser o primeiro a jogar (vs CPU) <input type="checkbox" name="playerFirst"></input></p>
-    <p>Nível da I.A. (vs CPU)
-    <select id="levelAI" autocomplete="off">
-        <option value="0" selected>Easy</option>
-        <option value="1">Medium</option>
-        <option value="2">Hard</option>
-    </select>
-    <input type="button" class="button" value="Começar"></input>
-    </p>
+<!-- buttons -->
+<div>
+    <button id="my_btn_login" class="button">Iniciar Sessão</button>
+    <button id="my_btn_config" class="button">Configurações</button>
+    <button id="my_btn_rules" class="button">Regras</button>
+    <button id="my_btn_score" class="button">Placar de Pontuação</button>
 </div>
 
-<div class="login">
 
-    <h1> Iniciar Sessão </h1>
+<div id="my_modal_config" class="modal">
+    <div id="config" class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Painel de configuração</h3>
 
-    <input class="emailpasse" type=email placeholder="E-mail ou número de telefone"> 
-    <p></p>
-    <input class="emailpasse" type=password placeholder="Palavra-passe">
-    <div class="bigbreak">
-        <br>
-        <input class="init" type=button value="Iniciar Sessão">
-        <p></p>
-
+        <p>Número de cavidades de cada lado do tabuleiro <select id="nCav" autocomplete="off">
+            <option value="5">5</option>
+            <option value="6" selected>6</option>
+            <option value="7">7</option>
+        </select></p>
+        <p>Número inicial de sementes por cavidade <select id="nSeeds" autocomplete="off">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4" selected>4</option>
+            <option value="5">5</option>
+        </select></p>
+        <p>Jogar contra
+        <input type="radio" name ="opponent" value="cpu" checked>o computador</input>
+        <input type="radio" name ="opponent" value="human">outro jogador</input>
+        </p>
+        <p>Quero ser o primeiro a jogar (vs CPU) <input type="checkbox" name="playerFirst"></input></p>
+        <p>Nível da I.A. (vs CPU)
+        <select id="levelAI" autocomplete="off">
+            <option value="0" selected>Easy</option>
+            <option value="1">Medium</option>
+            <option value="2">Hard</option>
+        </select>
+        <!-- <input type="button" class="button" value="Começar"></input> -->
+        </p>
     </div>
 </div>
-    
-<div class="popup" onclick="myPopup()"> Regras
-    <div class="popuptext" id="myPopup">
+
+<div id="my_modal_login" class="modal">
+    <div id="login" class="modal-content">
+        <span class="close">&times;</span>
+
+        <h3> Iniciar Sessão </h3>
+
+        <p>
+            <input class="emailpasse" type=email placeholder="E-mail ou número de telefone"> 
+        </p>
+        <input class="emailpasse" type=password placeholder="Palavra-passe">
+        <div /*class="bigbreak"*/>
+            <br>
+            <input class="init" type=button value="Iniciar Sessão">
+            <br>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="my_modal_rules" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Regras</h3>
         <ol class="lessbigbreak">
             <li> Cada jogador fica com as cavidades do seu lado e o armazém a sua direita. 
             <li> As peças chamam-se sementes. 
@@ -73,45 +88,20 @@
     </div> 
 </div>
 
-<div>
-    <br>
-
-    <table>
-        <tr>
-            <td rowspan="2"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td rowspan="2"></td>
-        </tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        <tr>
-
-        </tr>
-    </table>
-
-
+<div id="my_modal_score" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Placar de Pontuação</h3>
+        <table id="scoretable">
+            <tr>
+                <td id="scoretd"><b>Id do Jogador</b></td>
+                <td id="scoretd"><b>Dificuldade da IA</b></td>
+                <td id="scoretd"><b>Pontuação</b></td>
+            </tr>
+        </table>
+    </div>
 </div>
-
-<input type="button" onclick="displayScore()"> <h1>Placar de Pontuações</h1></input>
-<div id="scoreboard">
-    <table id="scoretable">
-        <tr>
-            <td id="scoretd"><b>Id do Jogador</b></td>
-            <td id="scoretd"><b>Dificuldade da IA</b></td>
-            <td id="scoretd"><b>Pontuação</b></td>
-        </tr>
-    </table>
-</div>
-
+<script type="text/javascript" src="script.js"></script>
 <script>
     function myPopup() {
         var popup = document.getElementById("myPopup");

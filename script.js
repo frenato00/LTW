@@ -350,3 +350,66 @@ function minimax(tabu, depth) {
 
     return move;
 }
+// ---------------------
+// Pop-Ups
+// ---------------------
+
+//Config
+var modalConfig = document.getElementById("my_modal_config");
+var btnConfig = document.getElementById("my_btn_config");
+var spanConfig = document.getElementsByClassName("close")[0];
+btnConfig.onclick = function() {
+    modalConfig.style.display = "block";
+}
+spanConfig.onclick = function() {
+    modalConfig.style.display = "none";
+}
+
+//Login
+var modalLogin = document.getElementById("my_modal_login");
+var btnLogin = document.getElementById("my_btn_login");
+var spanLogin = document.getElementsByClassName("close")[1];
+btnLogin.onclick = function() {
+    modalLogin.style.display = "block";
+}
+spanLogin.onclick = function() {
+    modalLogin.style.display = "none";
+}
+
+//Rules
+var modalRules = document.getElementById("my_modal_rules");
+var btnRules = document.getElementById("my_btn_rules");
+var spanRules = document.getElementsByClassName("close")[2];
+btnRules.onclick = function() {
+    modalRules.style.display = "block";
+}
+spanRules.onclick = function() {
+    modalRules.style.display = "none";
+}
+
+//Score
+var modalScore = document.getElementById("my_modal_score");
+var btnScore = document.getElementById("my_btn_score");
+var spanScore = document.getElementsByClassName("close")[3];
+btnScore.onclick = function() {
+    modalScore.style.display = "block";
+}
+spanScore.onclick = function() {
+    modalScore.style.display = "none";
+}
+
+//Press anywhere to close popup
+window.onclick = function(event) {
+    if (event.target == modalConfig) {
+        modalConfig.style.display = "none";
+    }
+    if (event.target == modalLogin) {
+        modalLogin.style.display = "none";
+    }
+    if (event.target == modalRules) {
+        modalRules.style.display = "none";
+    }
+    if (event.target == modalScore) {
+        modalScore.style.display = "none";
+    }
+}
