@@ -31,7 +31,7 @@
     <input type="radio" name ="opponent" value="cpu">o computador</input>
     <input type="radio" name ="opponent" value="human">outro jogador</input>
     </p>
-    <p>Quero ser o primeiro a jogar (vs CPU) <input type="checkbox" name="playerFirst"></input></p>
+    <p>Quero ser o primeiro a jogar (vs CPU) <input type="checkbox" class="playerFirst"></input></p>
     <p>Nível da I.A. (vs CPU)
     <select id="levelAI" autocomplete="off">
         <option value="0" selected>Easy</option>
@@ -73,34 +73,6 @@
     </div> 
 </div>
 
-<div>
-    <br>
-
-    <table>
-        <tr>
-            <td rowspan="2"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td rowspan="2"></td>
-        </tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        <tr>
-
-        </tr>
-    </table>
-
-
-</div>
-
 <input type="button" onclick="displayScore()"> <h1>Placar de Pontuações</h1></input>
 <div id="scoreboard">
     <table id="scoretable">
@@ -111,18 +83,6 @@
         </tr>
     </table>
 </div>
-
-<script>
-    function myPopup() {
-        var popup = document.getElementById("myPopup");
-        popup.classList.toggle("show");
-    }
-
-    function displayScore(){
-        var x = document.getElementById("scoreboard");
-        x.style.display = x.style.display === "none" ? "block" : "none";
-    }
-</script>
 
 <input type="button" onclick="createTable()" value="Tabuleiro">
 

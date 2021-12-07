@@ -168,25 +168,6 @@ class Tabuleiro {
             nSeeds--;
         }
 
-
-        if (!(oSide == side && cell == this.nCav) && AI == 0) {
-            const body = document.body;
-            body.style.pointerEvents = "none";
-            setTimeout(function() {
-                tab.moveAI();
-                body.style.pointerEvents = "auto";
-            }, 1000);
-        }
-
-        if (oSide == side && cell == this.nCav && AI == 1) {
-            const body = document.body;
-            body.style.pointerEvents = "none";
-            setTimeout(function() {
-                tab.moveAI();
-                body.style.pointerEvents = "auto";
-            }, 1000);
-        }
-
         if (oSide == side && this.cavs[side][cell] == 1 && cell != this.nCav - 1) {
             this.collect(side, cell);
         }
@@ -194,9 +175,32 @@ class Tabuleiro {
         let res = this.checkSides();
 
         if (res != -1)
-            alert("Congrats player " + (res + 1) + " on your victory");
+            winMessage(res + 1);
 
-        this.showTable();
+        this.showTable();    
+        if (res == -1) {
+            if (!(oSide == side && cell == this.nCav - 1) && AI == 0) {
+                const body = document.body;
+                body.style.pointerEvents = "none";
+                deleteMessage();
+                setTimeout(function() {
+                    tab.moveAI();
+                    body.style.pointerEvents = "auto";
+                    playAgainMessage();
+                }, 1000);
+            }
+
+            if (oSide == side && cell == this.nCav && AI == 1) {
+                const body = document.body;
+                body.style.pointerEvents = "none";
+                deleteMessage();
+                setTimeout(function() {
+                    tab.moveAI();
+                    body.style.pointerEvents = "auto";
+                    playAgainMessage();
+                }, 1000);
+            }
+        }    
     }
 
 
@@ -245,14 +249,26 @@ function createTable() {
     var nCav = select.value;
     var select2 = document.getElementById("nSeeds");
     var nSeeds = select2.value;
+    var select3 = document.querySelector('.playerFirst').checked;
 
     tab = new Tabuleiro(nSeeds, nCav);
     tab.showTable();
+    if (!select3) {
+        setTimeout (function() {
+            tab.moveAI();
+            playAgainMessage();
+        }, 1000);
+    }
 }
 
 function myPopup() {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
+}
+
+function displayScore(){
+    var x = document.getElementById("scoreboard");
+    x.style.display = x.style.display === "none" ? "block" : "none";
 }
 
 function makeSeeds(nSeeds){
@@ -349,4 +365,59 @@ function minimax(tabu, depth) {
     }
 
     return move;
+}
+
+function playAgainMessage() {
+    const last = document.body.lastChild;
+    const mes = document.createElement("div");
+    const phrase = document.createTextNode("YOUR TURN");
+    mes.appendChild(phrase);
+    mes.style.width = "100px";
+    mes.style.height = "100px";
+    mes.style.paddingTop = "55px";
+    mes.style.textAlign = "center"
+    mes.style.backgroundColor = "black";
+    mes.style.border = "10px solid purple";
+    mes.style.color = "white";
+    mes.style.position = "relative";
+    mes.style.float = "right";
+    mes.style.top = "250px";
+    mes.style.fontSize = "20px";
+    mes.id = "mes";
+    document.body.insertBefore(mes, last);
+}
+
+function deleteMessage() {
+    const mes = document.getElementById("mes");
+    if (mes != null)
+        document.body.removeChild(mes);
+}
+
+function winMessage(player) {
+
+    deleteMessage();
+
+    const last = document.body.lastChild;
+    const win = document.createElement("div");
+    const phrase = document.createTextNode("Congratulations player " + player + " on your victory.")
+    win.appendChild(phrase);
+    win.style.cursor = "pointer";
+    win.style.position = "absolute";
+    win.style.width = "800px";
+    win.style.height = "300px";
+    win.style.backgroundColor = "gold";
+    win.style.top = "400px";
+    win.style.left = "175px";
+    win.style.border = "10px solid goldenrod";
+    win.style.fontSize = "100px";
+    win.style.textAlign = "center";
+    win.style.padding = "155px";
+    win.id = "winner"
+    win.onclick = function() {
+       const winner = document.getElementById("winner");
+       document.body.removeChild(winner);
+
+    }
+    document.body.insertBefore(win, last);
+
 }
