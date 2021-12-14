@@ -93,6 +93,21 @@ html, body {
     cursor: pointer;
 }
 
+.quit {
+    background-color: #c4363693;
+    border: black;
+    color: white;
+    border-radius: 10px;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: large;
+}
+
+.quit:hover,
+.quit:focus {
+    background-color: #cf5b5b;
+    cursor: pointer;
+}
 
 #scoretable {
     border-collapse: collapse;
@@ -156,6 +171,19 @@ html, body {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+.big-message {
+    cursor: pointer;
+    position: fixed;
+    width: 800px;
+    height: 400px;
+    left: 350px;
+    top: 200px;
+    font-size: 100px;
+    text-align: center;
+    background-color: red;
+    border: 10px solid black;
 }
 
 #my_modal_rules{

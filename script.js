@@ -93,7 +93,7 @@ class Tabuleiro {
     showTable() {
         const body = document.body;
         const board = document.createElement("table");
-
+        board.id = "board";
         body.removeChild(body.lastChild);
         board.style.borderCollapse = "collapse";
         
@@ -245,7 +245,6 @@ class Tabuleiro {
 var tab;
 
 function createTable() {
-
     deleteMessage();
 
     var select = document.getElementById("nCav");
@@ -257,9 +256,11 @@ function createTable() {
     tab = new Tabuleiro(nSeeds, nCav);
     tab.showTable();
     if (!select3) {
+        document.body.style.pointerEvents = "none";
         setTimeout (function() {
             tab.moveAI();
             playAgainMessage();
+            document.body.style.pointerEvents = "auto";
         }, 1000);
     }
 }
@@ -417,6 +418,20 @@ spanScore.onclick = function() {
     modalScore.style.display = "none";
 }
 
+//Quit
+var modalQuit = document.getElementById("my_modal_quit");
+var btnQuit = document.getElementById("my_btn_quit");
+var spanQuit = document.getElementsByClassName("close")[4];
+btnQuit.onclick = function() {
+    var board = document.getElementById("board");
+    board.style.pointerEvents = "none";
+    deleteMessage();
+    modalQuit.style.display = "block";
+}
+spanQuit.onclick = function() {
+    modalQuit.style.display = "none";
+}
+
 //Press anywhere to close popup
 window.onclick = function(event) {
     if (event.target == modalConfig) {
@@ -430,6 +445,9 @@ window.onclick = function(event) {
     }
     if (event.target == modalScore) {
         modalScore.style.display = "none";
+    }
+    if(event.target == modalQuit) {
+        modalQuit.style.display = "none";
     }
 }
 
@@ -467,17 +485,9 @@ function winMessage(player) {
     const win = document.createElement("div");
     const phrase = document.createTextNode("Congratulations player " + player + " on your victory.")
     win.appendChild(phrase);
-    win.style.cursor = "pointer";
-    win.style.position = "absolute";
-    win.style.width = "800px";
-    win.style.height = "300px";
+    win.className = "big-message";
     win.style.backgroundColor = "gold";
-    win.style.top = "400px";
-    win.style.left = "175px";
     win.style.border = "10px solid goldenrod";
-    win.style.fontSize = "100px";
-    win.style.textAlign = "center";
-    win.style.padding = "155px";
     win.id = "winner"
     win.onclick = function() {
        const winner = document.getElementById("winner");

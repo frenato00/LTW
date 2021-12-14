@@ -15,6 +15,7 @@
     <button id="my_btn_config" class="button">Configurações</button>
     <button id="my_btn_rules" class="button">Regras</button>
     <button id="my_btn_score" class="button">Placar de Pontuação</button>
+    <button id="my_btn_quit" class="quit">Desistir</button>
 </div>
 
 
@@ -101,18 +102,15 @@
         </table>
     </div>
 </div>
-<script type="text/javascript" src="script.js"></script>
-<!--<script>
-    function myPopup() {
-        var popup = document.getElementById("myPopup");
-        popup.classList.toggle("show");
-    }
 
-    function displayScore(){
-        var x = document.getElementById("scoreboard");
-        x.style.display = x.style.display === "none" ? "block" : "none";
-    }
-</script>-->
+<div id="my_modal_quit" class="modal">
+    <div class="big-message">
+        <span class="close">&times;</span>
+        <p>You quitted!<br>Opponent wins!</p>
+    </div>
+</div>
+
+<script type="text/javascript" src="script.js"></script>
 
 <input type="button" onclick="createTable()" value="Tabuleiro">
 
