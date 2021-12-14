@@ -44,13 +44,13 @@ class Tabuleiro {
         var move;
 
         if (dificulty == 0)
-            move = minimax(this, 5);
+            move = minimax(this, 3);
 
         if (dificulty == 1)
-            move = minimax(this, 7);
+            move = minimax(this, 5);
             
         if (dificulty == 2)
-            move = minimax(this, 9);
+            move = minimax(this, 7);
 
         tab.sowing(1, move, 1);
     }
@@ -245,6 +245,9 @@ class Tabuleiro {
 var tab;
 
 function createTable() {
+
+    deleteMessage();
+
     var select = document.getElementById("nCav");
     var nCav = select.value;
     var select2 = document.getElementById("nSeeds");
@@ -444,7 +447,7 @@ function playAgainMessage() {
     mes.style.color = "white";
     mes.style.position = "relative";
     mes.style.float = "right";
-    mes.style.top = "250px";
+    mes.style.top = "275px";
     mes.style.fontSize = "20px";
     mes.id = "mes";
     document.body.insertBefore(mes, last);

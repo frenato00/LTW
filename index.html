@@ -38,7 +38,7 @@
         <input type="radio" name ="opponent" value="cpu" checked>o computador</input>
         <input type="radio" name ="opponent" value="human">outro jogador</input>
         </p>
-        <p>Quero ser o primeiro a jogar (vs CPU) <input type="checkbox" name="playerFirst"></input></p>
+        <p>Quero ser o primeiro a jogar (vs CPU) <input type="checkbox" class="playerFirst"></input></p>
         <p>Nível da I.A. (vs CPU)
         <select id="levelAI" autocomplete="off">
             <option value="0" selected>Easy</option>
@@ -102,7 +102,7 @@
     </div>
 </div>
 <script type="text/javascript" src="script.js"></script>
-<script>
+<!--<script>
     function myPopup() {
         var popup = document.getElementById("myPopup");
         popup.classList.toggle("show");
@@ -112,7 +112,7 @@
         var x = document.getElementById("scoreboard");
         x.style.display = x.style.display === "none" ? "block" : "none";
     }
-</script>
+</script>-->
 
 <input type="button" onclick="createTable()" value="Tabuleiro">
 
