@@ -120,7 +120,8 @@ class Tabuleiro {
                 else {
                     td.appendChild(makeSeeds(this.cavs[i][j]));  
                     td.onclick = function() {
-                        tab.sowing(i, j, 0);
+                        //tab.sowing(i, j, 0);
+                        notify(i, j);
                     }
                 }      
                 /*td.onclick = function() {
@@ -243,14 +244,15 @@ class Tabuleiro {
 }
 
 var tab;
+var game;
 
-function createTable() {
+function createTable(nCav, nSeeds) {
     deleteMessage();
 
-    var select = document.getElementById("nCav");
+    /*var select = document.getElementById("nCav");
     var nCav = select.value;
     var select2 = document.getElementById("nSeeds");
-    var nSeeds = select2.value;
+    var nSeeds = select2.value;*/
     var select3 = document.querySelector('.playerFirst').checked;
 
     tab = new Tabuleiro(nSeeds, nCav);
@@ -427,6 +429,7 @@ btnQuit.onclick = function() {
     board.style.pointerEvents = "none";
     deleteMessage();
     modalQuit.style.display = "block";
+    leave();
 }
 spanQuit.onclick = function() {
     modalQuit.style.display = "none";
@@ -497,3 +500,82 @@ function winMessage(player) {
     document.body.insertBefore(win, last);
 
 }
+
+async function join(){
+
+    modalLogin.style.display = "none";
+
+    var group = '99';
+    var select = document.getElementById("nCavs");
+    var size = select.value;
+    var select2 = document.getElementById("nSeed");
+    var initial = select2.value;
+    var nick = document.getElementById("nick").value;
+    var password = document.getElementById("password").value;
+
+    let response = await fetch( 'http://twserver.alunos.dcc.fc.up.pt:8008/join',
+        {
+            method : 'POST',
+            headers : { 'Content-type' : 'application/json; charset=UTF-8' },
+            body : JSON.stringify({"group" : parseInt(group), "nick" : nick, "password" : password, "size" : parseInt(size), "initial" : parseInt(initial) })
+        }
+    );
+    let data = await response.json();
+    game = data['game'];
+
+    createTable(size, initial);
+}
+
+function notify(move, seeds) {
+    var nick = document.getElementById("nick").value;
+    var password = document.getElementById("password").value;
+
+    fetch( 'http://twserver.alunos.dcc.fc.up.pt:8008/notify',
+    {
+        method : 'POST',
+        headers : { 'Content-type' : 'application/json; charset=UTF-8' },
+        body : JSON.stringify({"nick" : nick, "password" : password, "game" : game, "move" : move })
+    })
+    .then(function(response) {
+        if (response.ok) {
+            tab.sowing(move, seeds, 0);
+        }
+    })
+}
+
+function leave() {
+    var nick = document.getElementById("nick").value;
+    var password = document.getElementById("password").value;
+
+    fetch( 'http://twserver.alunos.dcc.fc.up.pt:8008/leave',
+    {
+        method : 'POST',
+        headers : { 'Content-type' : 'application/json; charset=UTF-8' },
+        body : JSON.stringify({"nick" : nick, "password" : password, "game" : game })
+    });
+}
+
+//function ranking();
+
+function register() {
+    var nick = document.getElementById("nickreg").value;
+    var password = document.getElementById("passwordreg").value;
+
+    fetch( 'http://twserver.alunos.dcc.fc.up.pt:8008/register',
+        {
+            method : 'POST',
+            headers : { 'Content-type' : 'application/json; charset=UTF-8' },
+            body : JSON.stringify({ "nick" : nick, "password" : password })
+        }
+    ).then(function(response) {
+        if (response.ok) {
+            
+        }
+        else {
+            console.log("BAD");
+        }
+    });
+
+}
+
+//function update(nick, game);
