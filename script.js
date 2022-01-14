@@ -457,19 +457,21 @@ window.onclick = function(event) {
 function playAgainMessage() {
     const last = document.body.lastChild;
     const mes = document.createElement("div");
-    const phrase = document.createTextNode("YOUR TURN");
+    const phrase = document.createTextNode("Your Turn");
     mes.appendChild(phrase);
     mes.style.width = "100px";
-    mes.style.height = "100px";
-    mes.style.paddingTop = "55px";
+    mes.style.height = "80px";
+    mes.style.margin = "10px";
+    mes.style.paddingTop = "40px";
     mes.style.textAlign = "center"
-    mes.style.backgroundColor = "black";
-    mes.style.border = "10px solid purple";
-    mes.style.color = "white";
-    mes.style.position = "relative";
-    mes.style.float = "right";
-    mes.style.top = "275px";
-    mes.style.fontSize = "20px";
+    mes.style.backgroundColor = "#fefefe";
+    mes.style.border = "1px solid #888";
+    // mes.style.color = "white";
+    mes.style.position = "fixed";
+    mes.style.top = "200px";
+    mes.style.left = "0px";
+    // mes.style.float = "right";
+    mes.style.fontSize = "25px";
     mes.id = "mes";
     document.body.insertBefore(mes, last);
 }
@@ -486,11 +488,28 @@ function winMessage(player) {
 
     const last = document.body.lastChild;
     const win = document.createElement("div");
+    const subDiv = document.createElement("div");
     const phrase = document.createTextNode("Congratulations player " + player + " on your victory.")
-    win.appendChild(phrase);
-    win.className = "big-message";
-    win.style.backgroundColor = "gold";
-    win.style.border = "10px solid goldenrod";
+    subDiv.appendChild(phrase);
+    win.appendChild(subDiv);
+    win.style.cursor = "pointer";
+    win.style.position = "fixed";
+    win.style.zIndex = "1";
+    win.style.paddingTop = "100px";
+    win.style.top = "0px";
+    win.style.left = "0px";
+    win.style.width = "100%";
+    win.style.height = "100%";
+    win.style.backgroundColor = "rgba(0,0,0)";
+    win.style.backgroundColor = "rgba(0,0,0,0.4)";
+    win.style.fontSize = "50px";
+    // win.style.border = "10px solid goldenrod";
+    // win.style.textAlign = "center";
+    subDiv.style.backgroundColor = "#fefefe";
+    subDiv.style.margin = "auto";
+    subDiv.style.padding = "20px";
+    subDiv.style.border = "1px solid #888";
+    subDiv.style.width = "80%";
     win.id = "winner"
     win.onclick = function() {
        const winner = document.getElementById("winner");
