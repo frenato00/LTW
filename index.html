@@ -9,13 +9,21 @@
 
 <h1 id="Logo"><b>Mancala</b></h1>
 
+<!-- <p>
+    <input id="nickreg" class="emailpasse" type="text" placeholder="Nick do utilizador"> 
+</p>
+<input id="passwordreg" class="emailpasse" type=password placeholder="Palavra-passe">
+<br>
+<button onclick="register()" type=button>Registar</button>
+<br> -->
+
 <!-- buttons -->
 <!-- <div> -->
     <button id="my_btn_login" class="button">Iniciar Sessão</button>
     <button id="my_btn_config" class="button">Configurações</button>
     <button id="my_btn_rules" class="button">Regras</button>
     <button id="my_btn_score" class="button">Placar de Pontuação</button>
-    <button id="my_btn_quit" class="quit">Desistir</button>
+    <button id="my_btn_quit" class="quit">Sair</button>
 <!-- </div> -->
 
 
@@ -58,13 +66,24 @@
         <h3> Iniciar Sessão </h3>
 
         <p>
-            <input class="emailpasse" type=email id="input_email" placeholder="E-mail ou número de telefone"> 
+            <input id="nick" class="emailpasse" type="text" placeholder="Nick do utilizador"> 
         </p>
-        <input class="emailpasse" type=password id="input_password" placeholder="Palavra-passe">
+        <input id="password" class="emailpasse" type=password placeholder="Palavra-passe">
         <div /*class="bigbreak"*/>
+        <p>Número de cavidades de cada lado do tabuleiro <select id="nCavs" autocomplete="off">
+            <option value="5">5</option>
+            <option value="6" selected>6</option>
+            <option value="7">7</option>
+        </select></p>
+        <p>Número inicial de sementes por cavidade <select id="nSeed" autocomplete="off">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4" selected>4</option>
+            <option value="5">5</option>
+        </select></p>
             <br>
-            <input class="init" type=button value="Iniciar Sessão">
-            <input class="init" type=button value="Register" onclick="register()">
+            <button class ="init" onclick="join()" type=button>Iniciar Sessão</button>
+            <button class ="init" onclick="register()" type=button>Registar</button>
             <br>
 
         </div>
