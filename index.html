@@ -58,12 +58,13 @@
         <h3> Iniciar Sessão </h3>
 
         <p>
-            <input class="emailpasse" type=email placeholder="E-mail ou número de telefone"> 
+            <input class="emailpasse" type=email id="input_email" placeholder="E-mail ou número de telefone"> 
         </p>
-        <input class="emailpasse" type=password placeholder="Palavra-passe">
+        <input class="emailpasse" type=password id="input_password" placeholder="Palavra-passe">
         <div /*class="bigbreak"*/>
             <br>
             <input class="init" type=button value="Iniciar Sessão">
+            <input class="init" type=button value="Register" onclick="register()">
             <br>
 
         </div>
@@ -93,13 +94,16 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <h3>Placar de Pontuação</h3>
-        <table id="scoretable">
+        <div id="score_table">
+
+        </div>
+        <!-- <table id="scoretable">
             <tr>
                 <td id="scoretd"><b>Id do Jogador</b></td>
                 <td id="scoretd"><b>Dificuldade da IA</b></td>
                 <td id="scoretd"><b>Pontuação</b></td>
             </tr>
-        </table>
+        </table> -->
     </div>
 </div>
 

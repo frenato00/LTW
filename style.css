@@ -116,7 +116,7 @@ html, body {
     width: 100%;
 }
 
-#scoretd {
+#scoretable td {
     background-color: white;
     color: black;
     width: auto;

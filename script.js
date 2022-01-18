@@ -516,3 +516,87 @@ function winMessage(player) {
     document.body.insertBefore(win, last);
 
 }
+
+function httpRanking(){
+    fetch('http://twserver.alunos.dcc.fc.up.pt:8008/ranking', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        body: "{}"
+    })
+    .then(function status(response) {
+        if(response.ok)
+            return Promise.resolve(response);
+        else
+            return Promise.reject(new Error('Invalid status'));
+    })
+    .catch(console.log);
+}
+
+function httpRegister(nick, pass){
+    const obj = {"nick" : nick , "password" : pass};
+    fetch('http://twserver.alunos.dcc.fc.up.pt:8008/register',{
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        body: JSON.stringify(obj)
+    })
+    .then(function(response) {
+        if(response.ok) {
+           response.json().then(console.log());
+        } else
+           console.log('erro:' + response.statusText);
+     })
+    .catch(console.log);
+    return response.json();
+}
+
+function update(){
+    
+}
+
+class RankBoard {
+    constructor(ParentId){
+        const parent  = document.getElementById(ParentId);
+        const board = document.createElement("table");
+        board.setAttribute("id","scoretable");
+        const header = document.createElement("tr");
+        const hPlayer = document.createElement("td");
+        const hPlayerText = document.createTextNode("Id do Jogador");
+        const hDificulty = document.createElement("td");
+        const hDificultyText = document.createTextNode("Dificuldade da IA");
+        const hScore = document.createElement("td");
+        const hScoreText = document.createTextNode("Pontuação");
+
+        parent.appendChild(board);
+        board.appendChild(header);
+        header.appendChild(hPlayer);
+        hPlayer.appendChild(hPlayerText);
+        header.appendChild(hDificulty);
+        hDificulty.appendChild(hDificultyText);
+        header.appendChild(hScore);
+        hScore.appendChild(hScoreText);
+        this.getTop10();
+
+    }
+
+    getTop10(){
+        var data = httpRanking();
+        for(line in data){
+            console.log(line);
+        }
+    }
+}
+
+function register(){
+    var email = document.getElementById("input_email").value;
+    var pass = document.getElementById("input_password").value;
+    httpRegister(email, pass);
+}
+
+window.onload = function() {
+
+    const rankBoard = new RankBoard("score_table");
+}
