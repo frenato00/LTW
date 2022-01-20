@@ -121,7 +121,7 @@ class Tabuleiro {
                     td.appendChild(makeSeeds(this.cavs[i][j]));  
                     td.onclick = function() {
                         //tab.sowing(i, j, 0);
-                        notify(j, i);
+                        notify(j);
                     }
                 }      
                 /*td.onclick = function() {
@@ -257,14 +257,14 @@ function createTable(nCav, nSeeds) {
 
     tab = new Tabuleiro(nSeeds, nCav);
     tab.showTable();
-    if (!select3) {
+    /*if (!select3) {
         document.body.style.pointerEvents = "none";
         setTimeout (function() {
             tab.moveAI();
             playAgainMessage();
             document.body.style.pointerEvents = "auto";
         }, 1000);
-    }
+    }*/
 }
 
 function myPopup() {
@@ -647,7 +647,7 @@ window.onload = function() {
 async function join(){
 
     modalLogin.style.display = "none";
-    var group = '99';
+    var group = '93';
     var select = document.getElementById("nCavs");
     var size = select.value;
     var select2 = document.getElementById("nSeed");
@@ -659,25 +659,24 @@ async function join(){
         {
             method : 'POST',
             headers : { 'Content-type' : 'application/json; charset=UTF-8' },
-            body : JSON.stringify({"group" : parseInt(group), "nick" : nick, "password" : password, "size" : parseInt(size), "initial" : parseInt(initial) })
+            body : JSON.stringify({"group" : group, "nick" : nick, "password" : password, "size" : parseInt(size), "initial" : parseInt(initial) })
         }
     )
-    .then(function status(response) {
+    /*.then(function status(response) {
         if(response.ok)
             return Promise.resolve(response);
         else
             return Promise.reject(new Error('Invalid status'));
     })
-    .catch(console.log);
+    .catch(console.log);*/
     let data = await response.json();
     game = data['game'];
-
 
     createTable(size, initial);
 }
 
-function notify(move, seeds) {
-    console.log('move:' + move + ', seeds:' + seeds);
+function notify(move) {
+    console.log('move:' + move);
     var nick = document.getElementById("nick").value;
     var password = document.getElementById("password").value;
 
@@ -689,7 +688,7 @@ function notify(move, seeds) {
     })
     .then(function(response) {
         if (response.ok) {
-            tab.sowing(move, seeds, 0);
+            tab.sowing(0, move, 0);
         }
     })
 }
