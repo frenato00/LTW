@@ -671,7 +671,6 @@ async function join(){
     .catch(console.log);
     let data = await response.json();
     game = data['game'];
-    update(game);
 
 
     createTable(size, initial);
@@ -732,7 +731,7 @@ function register() {
 
 //function update(nick, game);
 
-// function joinAndUpdate(){
-//     join();
-//     update(game);
-// }
+function joinAndUpdate(){
+    join();
+    update(game);
+}
