@@ -121,7 +121,7 @@ class Tabuleiro {
                     td.appendChild(makeSeeds(this.cavs[i][j]));  
                     td.onclick = function() {
                         //tab.sowing(i, j, 0);
-                        notify(i, j);
+                        notify(j, i);
                     }
                 }      
                 /*td.onclick = function() {
@@ -244,7 +244,7 @@ class Tabuleiro {
 }
 
 var tab;
-var game;
+let game;
 
 function createTable(nCav, nSeeds) {
     deleteMessage();
@@ -520,8 +520,8 @@ function winMessage(player) {
 
 }
 
-function httpRanking(){
-    fetch('http://twserver.alunos.dcc.fc.up.pt:8008/ranking', {
+async function httpRanking(){
+    let response = await fetch('http://twserver.alunos.dcc.fc.up.pt:8008/ranking', {
         method: 'POST',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -535,6 +535,8 @@ function httpRanking(){
             return Promise.reject(new Error('Invalid status'));
     })
     .catch(console.log);
+    let data = await response.json();
+    return data['ranking'];
 }
 
 // function httpRegister(nick, pass){
@@ -556,7 +558,25 @@ function httpRanking(){
 //     return response.json();
 // }
 
-function update(){
+async function update(game){
+    let nick = document.getElementById("nick").value;
+    var headers = {};
+    // IE8 does not allow domains to be specified, just the *
+    // headers["Access-Control-Allow-Origin"] = req.headers.origin;
+    headers["Access-Control-Allow-Origin"] = "*";
+    let url = 'http://twserver.alunos.dcc.fc.up.pt:8008/update?nick=' + nick + '&game=' + game;
+    let eventSource = new EventSource(url,headers);
+    // let event = 'game=' + game + '&nick=' + nick;
+    eventSource.onopen = function(){
+        console.log(eventSource.readyState);
+        console.log('onopen');
+    }
+    eventSource.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        console.log('message: ' + data);
+        console('onmessage');
+    }
+    eventSource.close();
     
 }
 
@@ -567,11 +587,11 @@ class RankBoard {
         board.setAttribute("id","scoretable");
         const header = document.createElement("tr");
         const hPlayer = document.createElement("td");
-        const hPlayerText = document.createTextNode("Id do Jogador");
+        const hPlayerText = document.createTextNode("Nickname do Jogador");
         const hDificulty = document.createElement("td");
-        const hDificultyText = document.createTextNode("Dificuldade da IA");
+        const hDificultyText = document.createTextNode("Vitórias");
         const hScore = document.createElement("td");
-        const hScoreText = document.createTextNode("Pontuação");
+        const hScoreText = document.createTextNode("Total de Jogos");
 
         parent.appendChild(board);
         board.appendChild(header);
@@ -586,10 +606,29 @@ class RankBoard {
     }
 
     getTop10(){
-        var data = httpRanking();
-        for(line in data){
-            console.log(line);
-        }
+        httpRanking().then(response=>{
+            let data = response;
+            let board = document.getElementById("scoretable");
+            for(let i = 0; i < 10; i++){
+                let nick = data[i]['nick'];
+                let victories = data[i]['victories'];
+                let games = data[i]['games'];
+                let row = document.createElement("tr");
+                let nickCell = document.createElement("td");
+                let nickText = document.createTextNode(nick);
+                let victoriesCell = document.createElement("td");
+                let victoriesText = document.createTextNode(victories);
+                let gamesCell = document.createElement("td");
+                let gamesText = document.createTextNode(games);
+                board.appendChild(row);
+                row.appendChild(nickCell);
+                nickCell.appendChild(nickText);
+                row.appendChild(victoriesCell);
+                victoriesCell.appendChild(victoriesText);
+                row.appendChild(gamesCell);
+                gamesCell.appendChild(gamesText);
+            }
+        });
     }
 }
 
@@ -603,10 +642,11 @@ window.onload = function() {
 
     const rankBoard = new RankBoard("score_table");
 }
+
+
 async function join(){
 
     modalLogin.style.display = "none";
-
     var group = '99';
     var select = document.getElementById("nCavs");
     var size = select.value;
@@ -621,14 +661,24 @@ async function join(){
             headers : { 'Content-type' : 'application/json; charset=UTF-8' },
             body : JSON.stringify({"group" : parseInt(group), "nick" : nick, "password" : password, "size" : parseInt(size), "initial" : parseInt(initial) })
         }
-    );
+    )
+    .then(function status(response) {
+        if(response.ok)
+            return Promise.resolve(response);
+        else
+            return Promise.reject(new Error('Invalid status'));
+    })
+    .catch(console.log);
     let data = await response.json();
     game = data['game'];
+    update(game);
+
 
     createTable(size, initial);
 }
 
 function notify(move, seeds) {
+    console.log('move:' + move + ', seeds:' + seeds);
     var nick = document.getElementById("nick").value;
     var password = document.getElementById("password").value;
 
@@ -681,3 +731,8 @@ function register() {
 }
 
 //function update(nick, game);
+
+// function joinAndUpdate(){
+//     join();
+//     update(game);
+// }
