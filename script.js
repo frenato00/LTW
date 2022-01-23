@@ -120,19 +120,9 @@ class Tabuleiro {
                 else {
                     td.appendChild(makeSeeds(this.cavs[i][j]));  
                     td.onclick = function() {
-                        //tab.sowing(i, j, 0);
-                        res = notify(j);
-                        if (res == 1) {
-                            update(game);
-                        }
+                        tab.sowing(i, j, 0);
                     }
                 }      
-                /*td.onclick = function() {
-                    if (i == 0)
-                        tab.sowing(i, j);
-                    else    
-                        tab.sowing(i, tab.nCav - 2 - j);
-                }*/
             }
             if (i == 1) {
                 const td = tr.insertCell();
@@ -182,7 +172,7 @@ class Tabuleiro {
             winMessage(res + 1);
 
         this.showTable();    
-        /*if (res == -1) {
+        if (res == -1) {
             if (!(oSide == side && cell == this.nCav - 1) && AI == 0) {
                 const body = document.body;
                 body.style.pointerEvents = "none";
@@ -204,7 +194,7 @@ class Tabuleiro {
                     playAgainMessage();
                 }, 1000);
             }
-        }*/    
+        } 
     }
 
 
@@ -246,28 +236,157 @@ class Tabuleiro {
     }
 }
 
+class Tabuleiro2 {
+
+    constructor(nSeeds, nCav, nick) {
+        this.nCav = parseInt(nCav) + 1;
+
+        this.cavs = new Array(2);
+
+        this.player = nick;
+        this.opponent;
+
+        var first = new Array(this.nCav);
+        var second = new Array(this.nCav);
+
+        for (let i = 0; i < this.nCav; i++){
+            if (i == this.nCav - 1) {
+                first[i] = 0;
+                second[i] = 0;
+            }
+            else {
+                first[i] = nSeeds;
+                second[i] = nSeeds;
+            }    
+        }
+
+        this.cavs[0] = first;
+        this.cavs[1] = second; 
+
+    }
+
+    showTable(turn) {
+        const body = document.body;
+        const board = document.createElement("table");
+        board.id = "board";
+        body.removeChild(body.lastChild);
+        board.style.borderCollapse = "collapse";
+        
+        for (let i = 1; i > -1; i--) {
+            const tr = board.insertRow();
+            if (i == 1) {
+                const td = tr.insertCell();
+                td.setAttribute("rowSpan", 2);
+                td.style.border = "20px solid burlywood";
+                td.style.backgroundColor = "chocolate";
+                td.style.height = "200px";
+                td.style.width = "100px";
+                td.appendChild(makeSeeds(this.cavs[1][this.nCav-1]));
+            }    
+            for (let j = 0; j < this.nCav - 1; j++) {
+                const td = tr.insertCell();
+                td.style.border = "20px solid burlywood";
+                td.style.backgroundColor = "chocolate";
+                td.style.height = "200px";
+                td.style.width = "100px";
+                td.className = "td";
+                if (i == 1)
+                    td.appendChild(makeSeeds(this.cavs[i][this.nCav - 2 - j]));
+                else {
+                    td.appendChild(makeSeeds(this.cavs[i][j]));  
+                    if (turn == this.player) {
+                        td.onclick = function() {
+                            notify(j);
+                        }
+                    }    
+                }      
+            }
+            if (i == 1) {
+                const td = tr.insertCell();
+                td.setAttribute("rowSpan", 2);
+                td.style.border = "20px solid burlywood";
+                td.style.backgroundColor = "chocolate";
+                td.style.height = "200px";
+                td.style.width = "100px";
+                td.appendChild(makeSeeds(this.cavs[0][this.nCav - 1]));
+            }   
+        }
+
+        body.appendChild(board);
+        if (turn == this.player) {
+            playAgainMessage();
+        }
+    }
+
+    updateBoard(data) {
+        if (data["winner"] != null) {
+            if (data["winner"] == this.player){
+                winMessage(this.player);
+            }
+            else {
+                winMessage(this.opponent);
+            }
+            return;
+        }
+        let board = data["board"];
+        let turn = board["turn"];
+        let sides = board["sides"];
+        if (this.opponent == null) {
+            for (var side in sides) {
+                if (side != this.player) {
+                    this.opponent = side;
+                }
+            }
+        }
+        let player_side = sides[this.player];
+        let player_store = player_side["store"];
+        let player_pits = player_side["pits"];
+        let opponent_side = sides[this.opponent];
+        let opponent_store = opponent_side["store"];
+        let opponent_pits = opponent_side["pits"];
+
+        for (let i = 0; i < this.nCav; i++) {
+            if (i == this.nCav - 1) {
+                this.cavs[0][i] = player_store;
+                this.cavs[1][i] = opponent_store;
+            }
+            this.cavs[0][i] = player_pits[i];
+            this.cavs[1][i] = opponent_pits[i];
+        }
+
+        this.showTable(turn);
+    }
+}
+
 var tab;
 let game;
 
-function createTable(nCav, nSeeds) {
+function createTable() {
     deleteMessage();
 
-    /*var select = document.getElementById("nCav");
-    var nCav = select.value;
-    var select2 = document.getElementById("nSeeds");
-    var nSeeds = select2.value;*/
-    var select3 = document.querySelector('.playerFirst').checked;
+    var select = document.getElementsByName("opponent");
+    if (select[0].checked) {
 
-    tab = new Tabuleiro(nSeeds, nCav);
-    tab.showTable();
-    /*if (!select3) {
-        document.body.style.pointerEvents = "none";
-        setTimeout (function() {
-            tab.moveAI();
-            playAgainMessage();
-            document.body.style.pointerEvents = "auto";
-        }, 1000);
-    }*/
+        var select2 = document.getElementById("nCav");
+        var nCav = select2.value;
+        var select3 = document.getElementById("nSeeds");
+        var nSeeds = select3.value;
+        var select4 = document.querySelector('.playerFirst').checked;
+
+        tab = new Tabuleiro(nSeeds, nCav);
+        tab.showTable();
+        if (!select4) {
+            document.body.style.pointerEvents = "none";
+            setTimeout (function() {
+                tab.moveAI();
+                playAgainMessage();
+                document.body.style.pointerEvents = "auto";
+            }, 1000);
+        }
+    }
+    else {
+        join();
+    }
 }
 
 function myPopup() {
@@ -561,7 +680,7 @@ async function httpRanking(){
 //     return response.json();
 // }
 
-async function update(game){
+async function update(){
     let nick = document.getElementById("nick").value;
     var headers = {};
     // IE8 does not allow domains to be specified, just the *
@@ -576,10 +695,12 @@ async function update(game){
     }
     eventSource.onmessage = function(event) {
         const data = JSON.parse(event.data);
-        console.log('message: ' + data);
-        console('onmessage');
+
+        tab.updateBoard(data);
+        /*console.log('message: ' + data);
+        console('onmessage');*/
     }
-    eventSource.close();
+    //eventSource.close();
     
 }
 
@@ -635,12 +756,6 @@ class RankBoard {
     }
 }
 
-// function register(){
-//     var email = document.getElementById("input_email").value;
-//     var pass = document.getElementById("input_password").value;
-//     httpRegister(email, pass);
-// }
-
 window.onload = function() {
 
     const rankBoard = new RankBoard("score_table");
@@ -669,16 +784,18 @@ async function join(){
         let data = await response.json();
         game = data['game'];
 
-        createTable(size, initial);
-        return 1;
-    }
-    else {
-        return 0;
+        var select2 = document.getElementById("nCav");
+        var nCav = select2.value;
+        var select3 = document.getElementById("nSeeds");
+        var nSeeds = select3.value;
+
+        tab = new Tabuleiro2(nSeeds, nCav, nick);
+
+        update();
     }
 }
 
 function notify(move) {
-    console.log('move:' + move);
     var nick = document.getElementById("nick").value;
     var password = document.getElementById("password").value;
 
@@ -704,6 +821,12 @@ function leave() {
         method : 'POST',
         headers : { 'Content-type' : 'application/json; charset=UTF-8' },
         body : JSON.stringify({"nick" : nick, "password" : password, "game" : game })
+    }).then(function(response) {
+        if (response.ok) {
+        }
+        else {
+            console.log("BAD");
+        }
     });
 }
 
@@ -728,11 +851,4 @@ function register() {
         }
     });
 
-}
-
-//function update(nick, game);
-
-function joinAndUpdate(){
-    join();
-    update(game);
 }
