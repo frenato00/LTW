@@ -121,7 +121,10 @@ class Tabuleiro {
                     td.appendChild(makeSeeds(this.cavs[i][j]));  
                     td.onclick = function() {
                         //tab.sowing(i, j, 0);
-                        notify(j);
+                        res = notify(j);
+                        if (res == 1) {
+                            update(game);
+                        }
                     }
                 }      
                 /*td.onclick = function() {
@@ -179,7 +182,7 @@ class Tabuleiro {
             winMessage(res + 1);
 
         this.showTable();    
-        if (res == -1) {
+        /*if (res == -1) {
             if (!(oSide == side && cell == this.nCav - 1) && AI == 0) {
                 const body = document.body;
                 body.style.pointerEvents = "none";
@@ -201,7 +204,7 @@ class Tabuleiro {
                     playAgainMessage();
                 }, 1000);
             }
-        }    
+        }*/    
     }
 
 
@@ -662,17 +665,16 @@ async function join(){
             body : JSON.stringify({"group" : group, "nick" : nick, "password" : password, "size" : parseInt(size), "initial" : parseInt(initial) })
         }
     )
-    /*.then(function status(response) {
-        if(response.ok)
-            return Promise.resolve(response);
-        else
-            return Promise.reject(new Error('Invalid status'));
-    })
-    .catch(console.log);*/
-    let data = await response.json();
-    game = data['game'];
+    if (response.ok) {
+        let data = await response.json();
+        game = data['game'];
 
-    createTable(size, initial);
+        createTable(size, initial);
+        return 1;
+    }
+    else {
+        return 0;
+    }
 }
 
 function notify(move) {
