@@ -643,7 +643,9 @@ function winMessage(player) {
 }
 
 async function httpRanking(){
-    let response = await fetch('http://twserver.alunos.dcc.fc.up.pt:8008/ranking', {
+    //let response = await fetch('http://twserver.alunos.dcc.fc.up.pt:8008/ranking', {
+    let response = await fetch( 'http://localhost:9093/ranking', {
+
         method: 'POST',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -661,24 +663,6 @@ async function httpRanking(){
     return data['ranking'];
 }
 
-// function httpRegister(nick, pass){
-//     const obj = {"nick" : nick , "password" : pass};
-//     fetch('http://twserver.alunos.dcc.fc.up.pt:8008/register',{
-//         method: 'POST',
-//         headers: {
-//           'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
-//         },
-//         body: JSON.stringify(obj)
-//     })
-//     .then(function(response) {
-//         if(response.ok) {
-//            response.json().then(console.log());
-//         } else
-//            console.log('erro:' + response.statusText);
-//      })
-//     .catch(console.log);
-//     return response.json();
-// }
 
 async function update(){
     let nick = document.getElementById("nick").value;
@@ -697,8 +681,7 @@ async function update(){
         const data = JSON.parse(event.data);
 
         tab.updateBoard(data);
-        /*console.log('message: ' + data);
-        console('onmessage');*/
+
     }
     //eventSource.close();
     
@@ -836,7 +819,8 @@ function register() {
     var nick = document.getElementById("nick").value;
     var password = document.getElementById("password").value;
 
-    fetch( 'http://twserver.alunos.dcc.fc.up.pt:8008/register',
+    //fetch( 'http://twserver.alunos.dcc.fc.up.pt:8008/register',
+    fetch( 'http://localhost:9093/register',
         {
             method : 'POST',
             headers : { 'Content-type' : 'application/json; charset=UTF-8' },
